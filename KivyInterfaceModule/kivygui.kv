@@ -1,0 +1,284 @@
+#: import Popup kivy.uix.popup
+
+# HoverLabel
+<HoverLabel>:
+    text: "inside" if self.hovered else "outside"
+    pos: 200,200
+    size_hint: None, None
+    size: 100, 30
+    canvas.before:
+        Color:
+            rgb: 1,0,0
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+# The tooltip properties - should be redundant
+<Tooltip>:
+    size_hint: None, None
+    size: self.texture_size[0]+5, self.texture_size[1]+5
+    canvas.before:
+        Color:
+            rgb: 0.2, 0.2, 0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+# The message box properties
+<MessageBox>:
+    # size_hint = None, None
+    size: 400, 400
+    
+    BoxLayout:  
+        orientation: 'vertical'
+        Label:
+            text: root.message
+        Button:
+            size_hint: 1, 0.2
+            text: 'OK'
+            on_press: root.dismiss()
+
+# The ok/cancel message box properties
+<MessageBoxOKCancel>:
+    # size_hint = None, None
+    size: 400, 400
+    
+    BoxLayout:  
+        orientation: 'vertical'
+        Label:
+            text: root.message
+        Button:
+            size_hint: 0.5, 0.3
+            text: 'OK'
+            on_press: root.ok_clicked()
+        Button:
+            size_hint: 0.5, 0.3
+            text: 'Cancel'
+            on_press: root.cancel_clicked()
+            
+<MessageBoxText>:
+    size: 400, 400
+    TextInput:
+        text: root.message
+        
+
+
+# The selectable label properties
+<SelectableLabel>:
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+# The main window properties
+<MainWindow>:
+    orientation: "horizontal"
+    
+# The left pane properties
+<LeftPane>:
+    id: leftpane
+    orientation: "vertical"
+    spacing: 3
+    size_hint_x: 0.2
+    
+    #from_dt_input: from_dt
+    #to_dt_input: to_dt
+    
+    TextInput:
+        id: from_dt
+        hint_text: "Please enter the start date of the desired period."
+        
+    TextInput:
+        id: to_dt
+        hint_text: "Please enter the end date of the desired period."
+    
+    Button:
+        text: "Download articles!"
+        on_press: app.downloadDataButton()
+    Button:
+        text: "Get articles from the database!"
+        on_press: app.pullFromDatabaseButton() 
+        #from_date = LeftPane.from_dt.text, to_date = root.to_dt.text)
+    Button:
+        text: "Save to DB"
+        on_press: app.storeDataButton()
+        
+            
+<CentralPane>:
+    viewclass: "SelectableLabel"
+    size_hint_x: 1
+    
+    SelectableRecycleBoxLayout:
+    # the two options below were needed for the SelectableRecycleBoxLayout SO example code
+        id: selection_controller
+        key_selection: 'selectable'
+        
+        orientation: "vertical"
+        multiselect: False
+        touch_multiselect: False
+        default_size: None, dp(56)
+        default_size_hint: 1, None
+        size_hint_y: None
+        size_hint_x: 1
+        height: self.minimum_height
+    
+        
+<RightPane>:
+    cols: 5
+    spacing: 3
+    
+    BoxLayout:
+        orientation: 'vertical'
+        
+        CustomLabel:
+            #use_bubble: True
+            id: text_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Text: \n\n"
+            #on_touch_down: self.on_touch_down
+        
+        Label:
+            id: region_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Region: \n\n" # + app.extracted_elements_dictionary['region'][self.selected_index]
+            
+        Label:
+            id: topic_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Topic: \n\n" # + app.extracted_elements_dictionary['topic'][self.selected_index]
+            
+        Label:
+            id: date_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Date: \n\n" # + app.extracted_elements_dictionary['date'][self.selected_index]
+    
+    
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: polarity_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Polarity score: "+ "\n"
+    
+        Label:
+            id: emotions_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Emotions: \n\n"
+            
+        Label:
+            id: frequencies_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Most frequent words: \n\n"
+
+        Label:
+            id: keep_flag_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Current flag: \n\n"
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: lda_keywords_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Keywords (LDA, current): \n\n"
+    
+        Label:
+            id: lda_keywords_db_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Keywords (LDA, database): \n\n"
+    
+        Label:
+            id: nmf_keywords_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Keywords (NMF, current): \n\n"
+    
+        Label:
+            id: nmf_keywords_db_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Keywords (NMF, database): \n\n"
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: ner_gpe_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Geo-political entities: \n\n"
+    
+        Label:
+            id: ner_org_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Organizations: \n\n"
+    
+        Label:
+            id: ner_person_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Persons: \n\n"
+            
+        Label:
+            id: ner_loc_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Locations: \n\n"
+            
+        Label:
+            id: ner_other_label
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: "Others: \n\n"
+    
+    
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 0.3
+        
+        Button:
+            text: "Keep"
+            on_press: app.keepButton()
+            on_release: app._selectNextItem()
+            
+        Button:
+            text: "Discard"
+            on_press: app.discardButton()
+            on_release: app._selectNextItem()
+        
+    # Button:
+    #     text: "Details"
+    #     on_press: app.detailsButton()
+    

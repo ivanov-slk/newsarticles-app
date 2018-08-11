@@ -1,0 +1,38 @@
+Unsupervised topic extraction:
+- K-Means clustering or any other sensible clustering algorithm
+
+- Latent Dirichlet Allocation - http://blog.echen.me/2011/08/22/introduction-to-latent-dirichlet-allocation/
+			      - blog.echen.me/2011/06/27/topic-modeling-the-sarah-palin-emails/
+			      - https://medium.com/@lettier/how-does-lda-work-ill-explain-using-emoji-108abf40fa7d
+			      - https://www.analyticsvidhya.com/blog/2016/08/beginners-guide-to-topic-modeling-in-python/
+			      - https://medium.com/mlreview/topic-modeling-with-scikit-learn-e80d33668730
+			      - https://datascienceplus.com/topic-modeling-in-python-with-nltk-and-gensim/
+			      - https://nlpforhackers.io/topic-modeling/
+			      - http://pythonforengineers.com/introduction-to-nltk-natural-language-processing-with-python/
+			      - https://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/
+
+- Topic modeling - https://en.wikipedia.org/wiki/Topic_model
+
+
+- Random
+https://medium.com/mlreview/a-simple-deep-learning-model-for-stock-price-prediction-using-tensorflow-30505541d877
+
+
+
+General things that I want included
+- What about extracting the original insider topic?
+1. Bag of words most frequent words chart
+2. Frequent words over time
+3. Sentiment analysis plus charts (different documents on a chart with their respective sentiments) plus the same 
+document (topic, rather) over time
+4. Try non-negative matrix factorization?
+5. Latent Dirichlet Allocation plus allocation of each document to a topic
+6. Charts by topic groups
+
+
+
+
+GUI Kivy
+https://kivy.org/docs/guide/basic.html
+https://www.codementor.io/kiok46/beginner-kivy-tutorial-basic-crash-course-for-apps-in-kivy-y2ubiq0gz
+https://medium.com/talk-like/python-gui-with-kivy-an-introduction-83ab35e30fc6
